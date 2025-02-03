@@ -8,6 +8,7 @@ public class PatientDTO {
 
     private String name;
     private String cpf;
+    private String rne;
     private LocalDate birthDate;
     private String email;
     private String phone;
@@ -17,9 +18,10 @@ public class PatientDTO {
 
     }
 
-    public PatientDTO(String name, String cpf, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
+    public PatientDTO(String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
         this.name = name;
         this.cpf = cpf;
+        this.rne = rne;
         this.birthDate = birthDate;
         this.email = email;
         this.phone = phone;
@@ -32,6 +34,10 @@ public class PatientDTO {
 
     public String getCpf() {
         return cpf;
+    }
+
+    public String getRne() {
+        return rne;
     }
 
     public LocalDate getBirthDate() {

@@ -15,14 +15,16 @@ public class PatientModel implements Serializable {
     private String id;
     private String name;
     private String cpf;
+    private String rne;
     private LocalDate birthDate;
     private String email;
     private String phone;
     private List<AddressModel> addresses;
 
-    public PatientModel(String name, String cpf, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
+    public PatientModel(String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
         this.name = name;
         this.cpf = cpf;
+        this.rne = rne;
         this.birthDate = birthDate;
         this.email = email;
         this.phone = phone;
@@ -38,6 +40,10 @@ public class PatientModel implements Serializable {
 
     public String getCpf() {
         return cpf;
+    }
+
+    public String getRne() {
+        return rne;
     }
 
     public LocalDate getBirthDate() {

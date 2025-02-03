@@ -2,7 +2,6 @@ package br.com.fase5.hackaton.mspatient.controller;
 
 import br.com.fase5.hackaton.mspatient.dto.PatientDTO;
 import br.com.fase5.hackaton.mspatient.service.PatientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/patient")
 public class PatientController {
 
-    @Autowired
-    private PatientService patientService;
+    private final PatientService patientService;
+
+    public PatientController(PatientService patientService){
+        this.patientService = patientService;
+    }
 
     @PostMapping
     public ResponseEntity<PatientDTO> save(@RequestBody PatientDTO patientDTO) {
