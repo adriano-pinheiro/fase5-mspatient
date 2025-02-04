@@ -62,4 +62,7 @@ public class PatientModel implements Serializable {
         return addresses;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }
