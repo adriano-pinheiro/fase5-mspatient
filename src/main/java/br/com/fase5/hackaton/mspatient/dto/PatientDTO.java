@@ -1,12 +1,15 @@
 package br.com.fase5.hackaton.mspatient.dto;
 
 import br.com.fase5.hackaton.mspatient.model.AddressModel;
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public class PatientDTO {
 
     private String id;
+    @NotBlank(message = "O nome é obrigatório.")
     private String name;
     private String cpf;
     private String rne;
@@ -77,5 +80,17 @@ public class PatientDTO {
 
     public void setAddresses(List<AddressModel> addresses) {
         this.addresses = addresses;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setRne(String rne) {
+        this.rne = rne;
     }
 }

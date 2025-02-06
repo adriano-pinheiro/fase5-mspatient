@@ -1,5 +1,6 @@
 package br.com.fase5.hackaton.mspatient.model;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serial;
@@ -69,4 +70,17 @@ public class PatientModel implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setRne(String rne) {
+        this.rne = rne;
+    }
+
 }
