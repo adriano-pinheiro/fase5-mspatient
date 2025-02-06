@@ -1,6 +1,6 @@
-var dbName = 'patientdb';
-var user = 'user_patient';
-var passwd = 'pass_patient';
+const dbName = 'patientdb';
+const user = 'user_patient';
+const passwd = 'pass_patient';
 
 db = db.getSiblingDB(dbName);
 db.createUser({

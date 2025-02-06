@@ -1,6 +1,5 @@
 package br.com.fase5.hackaton.mspatient.model;
 
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serial;
