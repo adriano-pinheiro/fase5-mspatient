@@ -26,14 +26,11 @@ public class PatientServiceImpl implements PatientService {
     public PatientDTO save(PatientDTO patientDTO) {
         PatientModel patientModel = PatientMapper.toPatientModel(patientDTO);
 
-        //Verifica a existência de um paciente com o mesmo CPF ou RNE
-        patientRepository.findFirstByCpfOrRne(patientDTO.getCpf(), patientDTO.getRne())
-                .ifPresent(p -> {
-                    throw new RuntimeException("Patient already exists by CPF or RNE");
-                });
+        if (patientExisting(patientDTO.getCpf(), patientDTO.getRne())) {
+            throw new RuntimeException("Patient already exists by CPF or RNE");
+        }
 
-        patientRepository.save(patientModel);
-        return patientDTO;
+        return PatientMapper.toPatientDTO(patientRepository.save(patientModel));
 
     }
 
@@ -58,9 +55,16 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional(readOnly = true)
-    public PatientDTO findFirstByCpfOrRne(String cpf, String rne) {
-        return patientRepository.findFirstByCpfOrRne(cpf, rne)
-                .orElseThrow(() -> new RuntimeException("Patient not found by CPF or RNE"));
+    public PatientDTO findByCpf(String cpf) {
+        return patientRepository.findByCpf(cpf)
+                .orElseThrow(() -> new RuntimeException("Patient not found by CPF"));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PatientDTO findByRne(String rne) {
+        return patientRepository.findByRne(rne)
+                .orElseThrow(() -> new RuntimeException("Patient not found by RNE"));
     }
 
     @Override
@@ -83,8 +87,22 @@ public class PatientServiceImpl implements PatientService {
 
         PatientModel patientModel = PatientMapper.toPatientModel(patientDTOExisting);
         patientModel.setId(id);
-        patientRepository.save(patientModel);
-        return patientDTO;
+        return PatientMapper.toPatientDTO(patientRepository.save(patientModel));
+    }
+
+    public boolean patientExisting(String cpf, String rne) {
+        boolean existingCpf = false;
+        boolean existingRne = false;
+
+        if (cpf != null){
+            existingCpf = patientRepository.existsByCpf(cpf);
+        }
+
+        if (rne != null){
+            existingRne = patientRepository.existsByRne(rne);
+        }
+
+        return  existingCpf || existingRne;
     }
 
 }

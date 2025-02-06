@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PatientDTO {
 
+    private String id;
     private String name;
     private String cpf;
     private String rne;
@@ -16,7 +17,8 @@ public class PatientDTO {
 
     public PatientDTO(){}
 
-    public PatientDTO(String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
+    public PatientDTO(String id, String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
+        this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.rne = rne;
@@ -26,6 +28,9 @@ public class PatientDTO {
         this.addresses = addresses;
     }
 
+    public String getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }

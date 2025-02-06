@@ -27,12 +27,13 @@ docker-compose up -d
 
 ## Documentação API
 
-- [Criar um Envio de Pedido](docs/create.md)
-- [Pesquisar Listar Envios](docs/shipping.md)
-- [Processar Envio](docs/process.md)
-- [Finalizar Envio](docs/finished.md)
-- [Pesquisar Listar Rastreios](docs/tracking.md)
-- [Listar Transportadoras](docs/carriers.md)
+- [Criar um Paciente](docs/create.md)
+- [Pesquisar Lista de pacientes](docs/list.md)
+- [Pesquisar paciente pelo ID ](docs/serchById.md)
+- [Pesquisar paciente pelo CPF](docs/serchByCpf.md)
+- [Pesquisar paciente pelo RNE](docs/serchByRne.md)
+- [Deletar um paciente pelo ID](docs/delete.md)
+- [Atualizar um paciente pelo ID](docs/update.md)
 
 ### Swagger
 http://localhost:8094/swagger-ui/index.html

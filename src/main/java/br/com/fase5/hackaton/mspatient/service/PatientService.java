@@ -5,11 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PatientService {
-
     PatientDTO save(PatientDTO patientDTO);
     Page<PatientDTO> findAll(Pageable pageable);
     PatientDTO findById(String id);
-    PatientDTO findFirstByCpfOrRne(String cpf, String rne);
+    PatientDTO findByCpf(String cpf);
+    PatientDTO findByRne(String rne);
     void deleteById(String id);
     PatientDTO update(String id, PatientDTO patientDTO);
 }

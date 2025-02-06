@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class PatientController {
     @Operation(summary = "Buscar todos os pacientes",
             description = "Este endpoint retorna todos os pacientes registrados no sistema.")
     @GetMapping
-    public ResponseEntity<Page<PatientDTO>> findAll(Pageable pageable){
+    public ResponseEntity<Page<PatientDTO>> findAll(@PageableDefault(page =0, size = 10) Pageable pageable){
         Page<PatientDTO> patientDTOS = patientService.findAll(pageable);
         return ResponseEntity.ok(patientDTOS);
     }
@@ -45,12 +46,19 @@ public class PatientController {
         return ResponseEntity.ok(patientDTO);
     }
 
-    @Operation(summary = "Buscar um paciente por CPF ou RNE",
-            description = "Este endpoint retorna um paciente de acordo com CPF ou RNE informado por parâmetro.")
-    @GetMapping("/cpfOrRne")
-    public ResponseEntity<PatientDTO> findByCpfOrRne(@RequestParam(value = "cpf", required = false) String cpf,
-                                                     @RequestParam(value = "rne", required = false) String rne){
-        PatientDTO patientDTO = patientService.findFirstByCpfOrRne(cpf, rne);
+    @Operation(summary = "Buscar um paciente por CPF",
+            description = "Este endpoint retorna um paciente de acordo com o CPF informado por parâmetro.")
+    @GetMapping("/cpf")
+    public ResponseEntity<PatientDTO> findByCpf(@RequestParam(value = "cpf") String cpf){
+        PatientDTO patientDTO = patientService.findByCpf(cpf);
+        return ResponseEntity.ok(patientDTO);
+    }
+
+    @Operation(summary = "Buscar um paciente por RNE",
+            description = "Este endpoint retorna um paciente de acordo com o RNE informado por parâmetro.")
+    @GetMapping("/rne")
+    public ResponseEntity<PatientDTO> findByRne(@RequestParam(value = "rne") String rne){
+        PatientDTO patientDTO = patientService.findByRne(rne);
         return ResponseEntity.ok(patientDTO);
     }
 
@@ -66,8 +74,8 @@ public class PatientController {
             description = "Este endpoint atualiza um paciente de acordo com o ID informado na URL.")
     @PutMapping("/{id}")
     public ResponseEntity<PatientDTO> update(@PathVariable String id, @RequestBody PatientDTO patientDTO){
-        patientService.update(id, patientDTO);
-        return ResponseEntity.ok(patientDTO);
+        PatientDTO patient = patientService.update(id, patientDTO);
+        return ResponseEntity.ok(patient);
     }
 
 }

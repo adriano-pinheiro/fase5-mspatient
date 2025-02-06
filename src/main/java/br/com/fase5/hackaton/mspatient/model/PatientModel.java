@@ -21,7 +21,8 @@ public class PatientModel implements Serializable {
     private String phone;
     private List<AddressModel> addresses;
 
-    public PatientModel(String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
+    public PatientModel(String id, String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
+        this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.rne = rne;
@@ -32,6 +33,10 @@ public class PatientModel implements Serializable {
     }
 
     public PatientModel() {}
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

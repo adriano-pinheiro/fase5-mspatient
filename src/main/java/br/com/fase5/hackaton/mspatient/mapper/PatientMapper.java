@@ -9,6 +9,7 @@ public class PatientMapper {
 
     public static PatientModel toPatientModel(PatientDTO patientDTO) {
         return new PatientModel(
+                patientDTO.getId(),
                 patientDTO.getName(),
                 patientDTO.getCpf(),
                 patientDTO.getRne(),
@@ -20,6 +21,7 @@ public class PatientMapper {
 
     public static PatientDTO toPatientDTO(PatientModel patientModel) {
         return new PatientDTO(
+                patientModel.getId(),
                 patientModel.getName(),
                 patientModel.getCpf(),
                 patientModel.getRne(),
