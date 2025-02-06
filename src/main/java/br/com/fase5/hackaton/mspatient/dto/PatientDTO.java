@@ -14,9 +14,7 @@ public class PatientDTO {
     private String phone;
     private List<AddressModel> addresses;
 
-    public PatientDTO(){
-
-    }
+    public PatientDTO(){}
 
     public PatientDTO(String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
         this.name = name;

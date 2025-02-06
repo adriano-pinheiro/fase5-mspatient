@@ -31,8 +31,7 @@ public class PatientModel implements Serializable {
         this.addresses = addresses;
     }
 
-    public PatientModel() {
-    }
+    public PatientModel() {}
 
     public String getName() {
         return name;

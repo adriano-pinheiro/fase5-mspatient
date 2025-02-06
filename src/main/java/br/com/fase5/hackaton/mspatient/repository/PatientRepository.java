@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface PatientRepository extends MongoRepository<PatientModel, String> {
-    Optional<PatientDTO> findByCpfOrRne(String cpfOrRne, String rne);
+    Optional<PatientDTO> findFirstByCpfOrRne(String cpfOrRne, String rne);
 }

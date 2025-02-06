@@ -9,7 +9,7 @@ public interface PatientService {
     PatientDTO save(PatientDTO patientDTO);
     Page<PatientDTO> findAll(Pageable pageable);
     PatientDTO findById(String id);
-    PatientDTO findByCpfOrRne(String cpf, String rne);
+    PatientDTO findFirstByCpfOrRne(String cpf, String rne);
     void deleteById(String id);
     PatientDTO update(String id, PatientDTO patientDTO);
 }

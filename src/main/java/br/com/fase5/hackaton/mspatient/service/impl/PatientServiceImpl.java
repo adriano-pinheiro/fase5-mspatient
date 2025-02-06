@@ -25,6 +25,13 @@ public class PatientServiceImpl implements PatientService {
     @Transactional
     public PatientDTO save(PatientDTO patientDTO) {
         PatientModel patientModel = PatientMapper.toPatientModel(patientDTO);
+
+        //Verifica a existência de um paciente com o mesmo CPF ou RNE
+        patientRepository.findFirstByCpfOrRne(patientDTO.getCpf(), patientDTO.getRne())
+                .ifPresent(p -> {
+                    throw new RuntimeException("Patient already exists by CPF or RNE");
+                });
+
         patientRepository.save(patientModel);
         return patientDTO;
 
@@ -51,8 +58,8 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional(readOnly = true)
-    public PatientDTO findByCpfOrRne(String cpf, String rne) {
-        return patientRepository.findByCpfOrRne(cpf, rne)
+    public PatientDTO findFirstByCpfOrRne(String cpf, String rne) {
+        return patientRepository.findFirstByCpfOrRne(cpf, rne)
                 .orElseThrow(() -> new RuntimeException("Patient not found by CPF or RNE"));
     }
 
