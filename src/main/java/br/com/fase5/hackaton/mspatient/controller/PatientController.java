@@ -4,6 +4,7 @@ import br.com.fase5.hackaton.mspatient.dto.PatientDTO;
 import br.com.fase5.hackaton.mspatient.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -33,7 +34,7 @@ public class PatientController {
     @Operation(summary = "Buscar todos os pacientes",
             description = "Este endpoint retorna todos os pacientes registrados no sistema.")
     @GetMapping
-    public ResponseEntity<Page<PatientDTO>> findAll(@PageableDefault(page =0, size = 10) Pageable pageable){
+    public ResponseEntity<Page<PatientDTO>> findAll(@ParameterObject @PageableDefault(page =0, size = 10) Pageable pageable){
         Page<PatientDTO> patientDTOS = patientService.findAll(pageable);
         return ResponseEntity.ok(patientDTOS);
     }

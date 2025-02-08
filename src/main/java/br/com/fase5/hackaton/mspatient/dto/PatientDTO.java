@@ -1,26 +1,22 @@
 package br.com.fase5.hackaton.mspatient.dto;
 
-import br.com.fase5.hackaton.mspatient.model.AddressModel;
-import jakarta.validation.constraints.NotBlank;
-
 import java.time.LocalDate;
 import java.util.List;
 
 public class PatientDTO {
 
     private String id;
-    @NotBlank(message = "O nome é obrigatório.")
     private String name;
     private String cpf;
     private String rne;
     private LocalDate birthDate;
     private String email;
     private String phone;
-    private List<AddressModel> addresses;
+    private List<AddressDTO> addresses;
 
     public PatientDTO(){}
 
-    public PatientDTO(String id, String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressModel> addresses) {
+    public PatientDTO(String id, String name, String cpf, String rne, LocalDate birthDate, String email, String phone, List<AddressDTO> addresses) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -58,7 +54,7 @@ public class PatientDTO {
         return phone;
     }
 
-    public List<AddressModel> getAddresses() {
+    public List<AddressDTO> getAddresses() {
         return addresses;
     }
 
@@ -78,7 +74,7 @@ public class PatientDTO {
         this.phone = phone;
     }
 
-    public void setAddresses(List<AddressModel> addresses) {
+    public void setAddresses(List<AddressDTO> addresses) {
         this.addresses = addresses;
     }
 

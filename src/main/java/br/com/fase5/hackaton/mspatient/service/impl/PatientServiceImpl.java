@@ -27,9 +27,7 @@ public class PatientServiceImpl implements PatientService {
     public PatientDTO save(PatientDTO patientDTO) {
         PatientModel patientModel = PatientMapper.toPatientModel(patientDTO);
 
-        if (validateCpfOrRne(patientDTO.getCpf(), patientDTO.getRne())) {
-            throw new ControllerNotFoundException("O CPF ou RNE deve ser informado.");
-        }
+        validateInput(patientDTO);
 
         if (patientExisting(patientDTO.getCpf(), patientDTO.getRne())) {
             throw new ControllerNotFoundException("O paciente já existe com este CPF ou RNE.");
@@ -81,8 +79,10 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional
     public PatientDTO update(String id, PatientDTO patientDTO) {
+        validateInput(patientDTO);
+
         PatientDTO patientDTOExisting = PatientMapper.toPatientDTO(patientRepository.findById(id)
-                .orElseThrow(() -> new ControllerNotFoundException("O paciênte não foi localizado com o ID informado.")));
+                .orElseThrow(() -> new ControllerNotFoundException("O paciente não foi localizado com o ID informado.")));
 
         patientDTOExisting.setName(patientDTO.getName());
         patientDTOExisting.setBirthDate(patientDTO.getBirthDate());
@@ -99,19 +99,26 @@ public class PatientServiceImpl implements PatientService {
         boolean existingCpf = false;
         boolean existingRne = false;
 
-        if (cpf != null){
+        if (cpf != null && !cpf.isEmpty()){
             existingCpf = patientRepository.existsByCpf(cpf);
         }
 
-        if (rne != null){
+        if (rne != null && !rne.isEmpty()){
             existingRne = patientRepository.existsByRne(rne);
         }
 
         return  existingCpf || existingRne;
     }
 
-    public boolean validateCpfOrRne(String cpf, String rne) {
-        return cpf == null && rne == null;
+    public void validateInput(PatientDTO patientDTO) {
+            if (patientDTO.getName() == null || patientDTO.getName().isEmpty()) {
+                throw new ControllerNotFoundException("O Nome deve ser informado.");
+            } else if ((patientDTO.getCpf() == null || patientDTO.getCpf().isEmpty()) &&
+                    (patientDTO.getRne() == null || patientDTO.getRne().isEmpty())) {
+                throw new ControllerNotFoundException("O CPF ou RNE deve ser informado.");
+            } else if (patientDTO.getAddresses().isEmpty()) {
+                throw new ControllerNotFoundException("Ao menos um endereço deve ser informado.");
+            }
     }
 
 }

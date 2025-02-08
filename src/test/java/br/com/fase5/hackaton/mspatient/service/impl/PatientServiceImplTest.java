@@ -1,7 +1,10 @@
 package br.com.fase5.hackaton.mspatient.service.impl;
 
+import br.com.fase5.hackaton.mspatient.dto.AddressDTO;
+import br.com.fase5.hackaton.mspatient.exception.ControllerNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import br.com.fase5.hackaton.mspatient.dto.PatientDTO;
 import br.com.fase5.hackaton.mspatient.model.PatientModel;
@@ -14,7 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -28,16 +33,17 @@ class PatientServiceImplTest {
     @InjectMocks
     private PatientServiceImpl patientService;
 
-    private PatientDTO patientDTO;
+    private PatientDTO patient;
     private PatientModel patientModel;
 
     @BeforeEach
     void setUp() {
-        patientDTO = new PatientDTO();
-        patientDTO.setId("1");
-        patientDTO.setCpf("12345678900");
-        patientDTO.setRne("12345XYZ");
-        patientDTO.setName("Adrian Test");
+        patient = new PatientDTO();
+        patient.setId("1");
+        patient.setCpf("12345678900");
+        patient.setRne("12345XYZ");
+        patient.setName("Adrian Test");
+        patient.setAddresses(new ArrayList<>(List.of(new AddressDTO())));
 
         patientModel = new PatientModel();
         patientModel.setId("1");
@@ -47,28 +53,28 @@ class PatientServiceImplTest {
     }
 
     @Test
-    void testSave_WhenPatientDoesNotExist_ShouldSaveSuccessfully() {
-        when(patientRepository.existsByCpf(patientDTO.getCpf())).thenReturn(false);
-        when(patientRepository.existsByRne(patientDTO.getRne())).thenReturn(false);
+    void save_WhenPatientDoesNotExist_ShouldSaveSuccessfully() {
+        when(patientRepository.existsByCpf(patient.getCpf())).thenReturn(false);
+        when(patientRepository.existsByRne(patient.getRne())).thenReturn(false);
         when(patientRepository.save(any(PatientModel.class))).thenReturn(patientModel);
 
-        PatientDTO savedPatient = patientService.save(patientDTO);
+        PatientDTO savedPatient = patientService.save(patient);
 
         assertNotNull(savedPatient);
-        assertEquals(patientDTO.getCpf(), savedPatient.getCpf());
+        assertEquals(patient.getCpf(), savedPatient.getCpf());
         verify(patientRepository, times(1)).save(any(PatientModel.class));
     }
 
     @Test
-    void testSave_WhenPatientExists_ShouldThrowException() {
-        when(patientRepository.existsByCpf(patientDTO.getCpf())).thenReturn(true);
+    void save_WhenPatientExists_ShouldThrowException() {
+        when(patientRepository.existsByCpf(patient.getCpf())).thenReturn(true);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> patientService.save(patientDTO));
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> patientService.save(patient));
         assertEquals("O paciente já existe com este CPF ou RNE.", exception.getMessage());
     }
 
     @Test
-    void testFindById_WhenPatientExists_ShouldReturnPatient() {
+    void findById_WhenPatientExists_ShouldReturnPatient() {
         when(patientRepository.findById("1")).thenReturn(Optional.of(patientModel));
 
         PatientDTO foundPatient = patientService.findById("1");
@@ -78,7 +84,7 @@ class PatientServiceImplTest {
     }
 
     @Test
-    void testFindById_WhenPatientDoesNotExist_ShouldThrowException() {
+    void findById_WhenPatientDoesNotExist_ShouldThrowException() {
         when(patientRepository.findById("1")).thenReturn(Optional.empty());
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> patientService.findById("1"));
@@ -86,7 +92,7 @@ class PatientServiceImplTest {
     }
 
     @Test
-    void testFindAll_ShouldReturnPagedPatients() {
+    void findAll_ShouldReturnPagedPatients() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<PatientModel> patientPage = new PageImpl<>(Collections.singletonList(patientModel));
         when(patientRepository.findAll(any(Pageable.class))).thenReturn(patientPage);
@@ -99,7 +105,7 @@ class PatientServiceImplTest {
     }
 
     @Test
-    void testDeleteById_ShouldDeleteSuccessfully() {
+    void deleteById_ShouldDeleteSuccessfully() {
         doNothing().when(patientRepository).deleteById("1");
 
         assertDoesNotThrow(() -> patientService.deleteById("1"));
@@ -107,10 +113,46 @@ class PatientServiceImplTest {
     }
 
     @Test
-    void validateCpfOrRne() {
-        assertTrue(patientService.validateCpfOrRne(null, null));
-        assertFalse(patientService.validateCpfOrRne("12345678900", null));
-        assertFalse(patientService.validateCpfOrRne(null, "RNE123456"));
-        assertFalse(patientService.validateCpfOrRne("12345678900", "RNE123456"));
+    void shouldThrowExceptionWhenNameIsNull() {
+        PatientDTO patientDTO = new PatientDTO();
+        patientDTO.setName(null);
+
+        assertThatThrownBy(() -> patientService.validateInput(patientDTO))
+                .isInstanceOf(ControllerNotFoundException.class)
+                .hasMessage("O Nome deve ser informado.");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenCpfAndRneAreNullOrEmpty() {
+        PatientDTO patientDTO = new PatientDTO();
+        patientDTO.setName("Tonho da Lua");
+        patientDTO.setCpf(null);
+        patientDTO.setRne("");
+
+        assertThatThrownBy(() -> patientService.validateInput(patientDTO))
+                .isInstanceOf(ControllerNotFoundException.class)
+                .hasMessage("O CPF ou RNE deve ser informado.");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenAddressListIsEmpty() {
+        PatientDTO patientDTO = new PatientDTO();
+        patientDTO.setName("Van Basten");
+        patientDTO.setCpf("12345678900");
+        patientDTO.setAddresses(Collections.emptyList());
+
+        assertThatThrownBy(() -> patientService.validateInput(patientDTO))
+                .isInstanceOf(ControllerNotFoundException.class)
+                .hasMessage("Ao menos um endereço deve ser informado.");
+    }
+
+    @Test
+    void shouldNotThrowExceptionForValidInput() {
+        PatientDTO patientDTO = new PatientDTO();
+        patientDTO.setName("Fernando Alonso");
+        patientDTO.setCpf("12345678900");
+        patientDTO.setAddresses(List.of(new AddressDTO()));
+
+        patientService.validateInput(patientDTO);
     }
 }

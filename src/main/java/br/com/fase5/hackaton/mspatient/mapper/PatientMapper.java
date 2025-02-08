@@ -1,7 +1,10 @@
 package br.com.fase5.hackaton.mspatient.mapper;
 
+import br.com.fase5.hackaton.mspatient.dto.AddressDTO;
 import br.com.fase5.hackaton.mspatient.dto.PatientDTO;
+import br.com.fase5.hackaton.mspatient.model.AddressModel;
 import br.com.fase5.hackaton.mspatient.model.PatientModel;
+import java.util.Collections;
 
 public class PatientMapper {
 
@@ -16,7 +19,20 @@ public class PatientMapper {
                 patientDTO.getBirthDate(),
                 patientDTO.getEmail(),
                 patientDTO.getPhone(),
-                patientDTO.getAddresses());
+                patientDTO.getAddresses() != null
+                        ? patientDTO.getAddresses().stream().map(PatientMapper::toAddressModel).toList()
+                        : Collections.emptyList());
+    }
+
+    private static AddressModel toAddressModel(AddressDTO addressDTO) {
+        return new AddressModel(
+                addressDTO.getStreet(),
+                addressDTO.getNumber(),
+                addressDTO.getComplement(),
+                addressDTO.getNeighborhood(),
+                addressDTO.getCity(),
+                addressDTO.getState(),
+                addressDTO.getZipCode());
     }
 
     public static PatientDTO toPatientDTO(PatientModel patientModel) {
@@ -28,7 +44,20 @@ public class PatientMapper {
                 patientModel.getBirthDate(),
                 patientModel.getEmail(),
                 patientModel.getPhone(),
-                patientModel.getAddresses());
+                patientModel.getAddresses() != null
+                        ? patientModel.getAddresses().stream().map(PatientMapper::toAddressDTO).toList()
+                        : Collections.emptyList());
+    }
+
+    private static AddressDTO toAddressDTO(AddressModel addressModel) {
+        return new AddressDTO(
+                addressModel.getStreet(),
+                addressModel.getNumber(),
+                addressModel.getComplement(),
+                addressModel.getNeighborhood(),
+                addressModel.getCity(),
+                addressModel.getState(),
+                addressModel.getZipCode());
     }
 
 }

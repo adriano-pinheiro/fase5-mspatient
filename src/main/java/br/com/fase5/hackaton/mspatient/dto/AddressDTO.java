@@ -1,9 +1,9 @@
-package br.com.fase5.hackaton.mspatient.model;
+package br.com.fase5.hackaton.mspatient.dto;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-public class AddressModel implements Serializable {
+public class AddressDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String street;
@@ -14,7 +14,10 @@ public class AddressModel implements Serializable {
     private String state;
     private String zipCode;
 
-    public AddressModel(String street, String number, String complement, String neighborhood, String city, String state, String zipCode) {
+    public AddressDTO() {
+    }
+
+    public AddressDTO(String street, String number, String complement, String neighborhood, String city, String state, String zipCode) {
         this.street = street;
         this.number = number;
         this.complement = complement;
