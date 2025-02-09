@@ -1,15 +1,23 @@
 package br.com.fase5.hackaton.mspatient.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalDate;
 import java.util.List;
 
 public class PatientDTO {
 
     private String id;
+
+    @NotBlank(message = "O Nome deve ser informado.")
     private String name;
+
+    @CPF(message = "O CPF informado é inválido.")
     private String cpf;
+
     private String rne;
     private LocalDate birthDate;
+
     private String email;
     private String phone;
     private List<AddressDTO> addresses;

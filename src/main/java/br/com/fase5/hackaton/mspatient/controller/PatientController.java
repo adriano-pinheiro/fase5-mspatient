@@ -4,6 +4,7 @@ import br.com.fase5.hackaton.mspatient.dto.PatientDTO;
 import br.com.fase5.hackaton.mspatient.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class PatientController {
     @Operation(summary = "Salvar um paciente",
             description = "Este endpoint salva um paciente no sistema.")
     @PostMapping
-    public ResponseEntity<PatientDTO> save(@RequestBody PatientDTO patientDTO) {
+    public ResponseEntity<PatientDTO> save(@Valid @RequestBody PatientDTO patientDTO) {
         PatientDTO patient = patientService.save(patientDTO);
         return new ResponseEntity<>(patient, HttpStatus.CREATED);
     }
