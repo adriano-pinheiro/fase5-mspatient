@@ -13,16 +13,17 @@ Micro serviço responsável pela gestão de pacientes
 
 ![Stack](docs/img/stack.png)
 
+## Iniciar testes unitários
+```shell
+make api/test
+```
+
 ## Iniciar ambiente dev/local
 
 Inicia containers e configura aplicação. Url de acesso: http://localhost:8094/api/v1
 
 ```shell
 make dev/local
-```
-ou
-``` shell
-docker-compose up -d 
 ```
 
 ## Documentação API

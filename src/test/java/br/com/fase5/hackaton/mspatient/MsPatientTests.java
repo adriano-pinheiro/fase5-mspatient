@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Profile;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.concurrent.Callable;
+import static org.awaitility.Awaitility.await;
 
 @SpringBootTest
 @Profile("test")
@@ -60,13 +62,17 @@ class MsPatientTests {
                 mongoClient.listDatabaseNames();
                 return;
             } catch (Exception ignored) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+                await().atMost(Duration.ofSeconds(15)).until(() -> didTheThing().call());
             }
         }
         throw new IOException("MongoDB não inicializou a tempo.");
+    }
+
+    private static Callable<Boolean> didTheThing() {
+        return new Callable<Boolean>() {
+            public Boolean call() throws Exception {
+                return null;
+            }
+        };
     }
 }

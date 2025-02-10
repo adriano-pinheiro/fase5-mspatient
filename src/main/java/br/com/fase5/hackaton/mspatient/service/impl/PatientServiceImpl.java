@@ -1,7 +1,7 @@
 package br.com.fase5.hackaton.mspatient.service.impl;
 
 import br.com.fase5.hackaton.mspatient.dto.PatientDTO;
-import br.com.fase5.hackaton.mspatient.exception.ControllerNotFoundException;
+import br.com.fase5.hackaton.mspatient.exception.NotFoundException;
 import br.com.fase5.hackaton.mspatient.mapper.PatientMapper;
 import br.com.fase5.hackaton.mspatient.model.PatientModel;
 import br.com.fase5.hackaton.mspatient.repository.PatientRepository;
@@ -30,7 +30,7 @@ public class PatientServiceImpl implements PatientService {
         validateInput(patientDTO);
 
         if (patientExisting(patientDTO.getCpf(), patientDTO.getRne())) {
-            throw new ControllerNotFoundException("O paciente já existe com este CPF ou RNE.");
+            throw new NotFoundException("O paciente já existe com este CPF ou RNE.");
         }
 
         return PatientMapper.toPatientDTO(patientRepository.save(patientModel));
@@ -53,21 +53,21 @@ public class PatientServiceImpl implements PatientService {
     @Transactional(readOnly = true)
     public PatientDTO findById(String id) {
         return  PatientMapper.toPatientDTO( patientRepository.findById(id)
-                .orElseThrow(() -> new ControllerNotFoundException("O paciente não foi localizado com o ID informado.")));
+                .orElseThrow(() -> new NotFoundException("O paciente não foi localizado com o ID informado.")));
     }
 
     @Override
     @Transactional(readOnly = true)
     public PatientDTO findByCpf(String cpf) {
         return patientRepository.findByCpf(cpf)
-                .orElseThrow(() -> new ControllerNotFoundException("O paciente não foi localizado com o CPF informado."));
+                .orElseThrow(() -> new NotFoundException("O paciente não foi localizado com o CPF informado."));
     }
 
     @Override
     @Transactional(readOnly = true)
     public PatientDTO findByRne(String rne) {
         return patientRepository.findByRne(rne)
-                .orElseThrow(() -> new ControllerNotFoundException("O paciente não foi localizado com o RNE informado."));
+                .orElseThrow(() -> new NotFoundException("O paciente não foi localizado com o RNE informado."));
     }
 
     @Override
@@ -82,7 +82,7 @@ public class PatientServiceImpl implements PatientService {
         validateInput(patientDTO);
 
         PatientDTO patientDTOExisting = PatientMapper.toPatientDTO(patientRepository.findById(id)
-                .orElseThrow(() -> new ControllerNotFoundException("O paciente não foi localizado com o ID informado.")));
+                .orElseThrow(() -> new NotFoundException("O paciente não foi localizado com o ID informado.")));
 
         patientDTOExisting.setName(patientDTO.getName());
         patientDTOExisting.setBirthDate(patientDTO.getBirthDate());
@@ -112,12 +112,12 @@ public class PatientServiceImpl implements PatientService {
 
     public void validateInput(PatientDTO patientDTO) {
             if (patientDTO.getName() == null || patientDTO.getName().isEmpty()) {
-                throw new ControllerNotFoundException("O Nome deve ser informado.");
+                throw new NotFoundException("O Nome deve ser informado.");
             } else if ((patientDTO.getCpf() == null || patientDTO.getCpf().isEmpty()) &&
                     (patientDTO.getRne() == null || patientDTO.getRne().isEmpty())) {
-                throw new ControllerNotFoundException("O CPF ou RNE deve ser informado.");
+                throw new NotFoundException("O CPF ou RNE deve ser informado.");
             } else if (patientDTO.getAddresses().isEmpty()) {
-                throw new ControllerNotFoundException("Ao menos um endereço deve ser informado.");
+                throw new NotFoundException("Ao menos um endereço deve ser informado.");
             }
     }
 

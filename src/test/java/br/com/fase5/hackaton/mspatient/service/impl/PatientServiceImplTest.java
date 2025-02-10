@@ -1,7 +1,7 @@
 package br.com.fase5.hackaton.mspatient.service.impl;
 
 import br.com.fase5.hackaton.mspatient.dto.AddressDTO;
-import br.com.fase5.hackaton.mspatient.exception.ControllerNotFoundException;
+import br.com.fase5.hackaton.mspatient.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -118,7 +118,7 @@ class PatientServiceImplTest {
         patientDTO.setName(null);
 
         assertThatThrownBy(() -> patientService.validateInput(patientDTO))
-                .isInstanceOf(ControllerNotFoundException.class)
+                .isInstanceOf(NotFoundException.class)
                 .hasMessage("O Nome deve ser informado.");
     }
 
@@ -130,7 +130,7 @@ class PatientServiceImplTest {
         patientDTO.setRne("");
 
         assertThatThrownBy(() -> patientService.validateInput(patientDTO))
-                .isInstanceOf(ControllerNotFoundException.class)
+                .isInstanceOf(NotFoundException.class)
                 .hasMessage("O CPF ou RNE deve ser informado.");
     }
 
@@ -142,7 +142,7 @@ class PatientServiceImplTest {
         patientDTO.setAddresses(Collections.emptyList());
 
         assertThatThrownBy(() -> patientService.validateInput(patientDTO))
-                .isInstanceOf(ControllerNotFoundException.class)
+                .isInstanceOf(NotFoundException.class)
                 .hasMessage("Ao menos um endereço deve ser informado.");
     }
 
