@@ -26,6 +26,10 @@ Inicia containers e configura aplicação. Url de acesso: http://localhost:8094/
 make dev/local
 ```
 
+## Collection para importação no Postman
+[patient.postman_collection.json](externalfiles%2Fpatient.postman_collection.json)
+
+
 ## Documentação API
 
 - [Criar um Paciente](docs/create.md)

@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "f4884822-64f3-4e0c-b5f7-3f7e8a8153df",
+		"name": "fase5-hackaton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8121599"
+	},
+	"item": [
+		{
+			"name": "patient",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Edgard Alencar\",\r\n    \"cpf\": null,\r\n    \"rne\": \"12345\",\r\n    \"birthDate\": \"1989-10-01\",\r\n    \"email\": \"teste@teste.com.br\",\r\n    \"phone\": \"(11)97979-7979\",\r\n    \"addresses\": [\r\n        {\r\n            \"street\": \"Rua Lazaro Silva\",\r\n            \"number\": \"233\",\r\n            \"complement\": \"10A\",\r\n            \"neighborhood\": \"City Bussocaba\",\r\n            \"city\": \"Osasco\",\r\n            \"state\": \"SP\",\r\n            \"zipCode\": \"06641470\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/patient",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"name\": \"Edgard Alencar Alterado\",\r\n  \"birthDate\": \"1989-01-01\",\r\n  \"email\": \"edgard.alecard@email.com\",\r\n  \"phone\": \"(11) 99999-9999\",\r\n  \"addresses\": [\r\n    {\r\n      \"street\": \"111\",\r\n      \"number\": \"222\",\r\n      \"complement\": \"333\",\r\n      \"neighborhood\": \"444\",\r\n      \"city\": \"555\",\r\n      \"state\": \"666\",\r\n      \"zipCode\": \"777\"\r\n    },\r\n    {\r\n      \"street\": \"Avenida Paulista\",\r\n      \"number\": \"456\",\r\n      \"complement\": \"Sala 202\",\r\n      \"neighborhood\": \"Bela Vista\",\r\n      \"city\": \"São Paulo\",\r\n      \"state\": \"SP\",\r\n      \"zipCode\": \"01310-000\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/patient/67aa4a1e3873250ef93ec2ad",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"67aa4a1e3873250ef93ec2ad"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/patient",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/patient/67aa443ac1530e2778a51ed7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"67aa443ac1530e2778a51ed7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByCpf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/patient/cpf?cpf=04782771053",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"cpf"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "cpf",
+									"value": "04782771053"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByRne",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/patient/rne?rne=12345",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"rne"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "rne",
+									"value": "12345"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/patient/67aa4a1e3873250ef93ec2ad",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patient",
+								"67aa4a1e3873250ef93ec2ad"
+							],
+							"query": [
+								{
+									"key": "cpf",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "rne",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
