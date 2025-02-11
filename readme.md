@@ -46,5 +46,5 @@ docker-compose up -d
 - [Deletar um paciente pelo ID](docs/delete.md)
 - [Atualizar um paciente pelo ID](docs/update.md)
 
-### Swagger
+## Swagger
 http://localhost:8094/swagger-ui/index.html
