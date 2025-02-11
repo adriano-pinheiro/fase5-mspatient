@@ -4,6 +4,8 @@ Micro serviço responsável pela gestão de pacientes
 
 - Controle de Pacientes
 
+Url de acesso: http://localhost:8094/api/v1
+
 ## Stack
 
 - Java 17
@@ -14,23 +16,31 @@ Micro serviço responsável pela gestão de pacientes
 ![Stack](docs/img/stack.png)
 
 ## Iniciar testes unitários
+
+Execução dos testes unitários. Necessário ter o utilitário make instalado.
+
 ```shell
 make api/test
 ```
 
 ## Iniciar ambiente dev/local
 
-Inicia containers e configura aplicação. Url de acesso: http://localhost:8094/api/v1
+Inicia container e configura a aplicação. Necessário ter o utilitário make instalado. 
 
 ```shell
 make dev/local
 ```
 
-ou
+ou inicialização manual
 
 ```shell
 docker-compose up -d
+mvnw spring-boot:run
 ```
+
+## GIT
+https://github.com/adriano-pinheiro/fase5-mspatient
+
 
 ## Collection para importação no Postman
 [patient.postman_collection.json](externalfiles%2Fpatient.postman_collection.json)
