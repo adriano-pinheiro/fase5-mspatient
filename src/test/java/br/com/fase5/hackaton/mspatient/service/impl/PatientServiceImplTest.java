@@ -38,12 +38,7 @@ class PatientServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        patient = new PatientDTO();
-        patient.setId("1");
-        patient.setCpf("12345678900");
-        patient.setRne("12345XYZ");
-        patient.setName("Adrian Test");
-        patient.setAddresses(new ArrayList<>(List.of(new AddressDTO())));
+        patient = new PatientDTO("1", "Adrian Test", "12345678900", "12345XYZ", new ArrayList<>(List.of(new AddressDTO())));
 
         patientModel = new PatientModel();
         patientModel.setId("1");
@@ -114,45 +109,35 @@ class PatientServiceImplTest {
 
     @Test
     void shouldThrowExceptionWhenNameIsNull() {
-        PatientDTO patientDTO = new PatientDTO();
-        patientDTO.setName(null);
+        PatientDTO patientDTO = new PatientDTO( null, null, null, null, new ArrayList<>(List.of(new AddressDTO())));
 
-        assertThatThrownBy(() -> patientService.validateInput(patientDTO))
+        assertThatThrownBy(() -> patientService.validateInput(patientDTO,"save"))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessage("O Nome deve ser informado.");
     }
 
     @Test
     void shouldThrowExceptionWhenCpfAndRneAreNullOrEmpty() {
-        PatientDTO patientDTO = new PatientDTO();
-        patientDTO.setName("Tonho da Lua");
-        patientDTO.setCpf(null);
-        patientDTO.setRne("");
+        PatientDTO patientDTO = new PatientDTO( null, "Tonho da Lua", null, "", new ArrayList<>(List.of(new AddressDTO())));
 
-        assertThatThrownBy(() -> patientService.validateInput(patientDTO))
+        assertThatThrownBy(() -> patientService.validateInput(patientDTO,"save"))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessage("O CPF ou RNE deve ser informado.");
     }
 
     @Test
     void shouldThrowExceptionWhenAddressListIsEmpty() {
-        PatientDTO patientDTO = new PatientDTO();
-        patientDTO.setName("Van Basten");
-        patientDTO.setCpf("12345678900");
-        patientDTO.setAddresses(Collections.emptyList());
+        PatientDTO patientDTO = new PatientDTO(null, "Van Basten", "12345678900", "", new ArrayList<>());
 
-        assertThatThrownBy(() -> patientService.validateInput(patientDTO))
+        assertThatThrownBy(() -> patientService.validateInput(patientDTO,"save"))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessage("Ao menos um endereço deve ser informado.");
     }
 
     @Test
     void shouldNotThrowExceptionForValidInput() {
-        PatientDTO patientDTO = new PatientDTO();
-        patientDTO.setName("Fernando Alonso");
-        patientDTO.setCpf("12345678900");
-        patientDTO.setAddresses(List.of(new AddressDTO()));
+        PatientDTO patientDTO = new PatientDTO( null, "Fernando Alonso", "12345678900", "", new ArrayList<>(List.of(new AddressDTO())));
 
-        patientService.validateInput(patientDTO);
+        patientService.validateInput(patientDTO,"save");
     }
 }

@@ -26,6 +26,12 @@ Inicia containers e configura aplicação. Url de acesso: http://localhost:8094/
 make dev/local
 ```
 
+ou
+
+```shell
+docker-compose up -d
+```
+
 ## Collection para importação no Postman
 [patient.postman_collection.json](externalfiles%2Fpatient.postman_collection.json)
 

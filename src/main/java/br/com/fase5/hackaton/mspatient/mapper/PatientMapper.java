@@ -24,7 +24,7 @@ public class PatientMapper {
                         : Collections.emptyList());
     }
 
-    private static AddressModel toAddressModel(AddressDTO addressDTO) {
+    public static AddressModel toAddressModel(AddressDTO addressDTO) {
         return new AddressModel(
                 addressDTO.getStreet(),
                 addressDTO.getNumber(),
@@ -49,7 +49,7 @@ public class PatientMapper {
                         : Collections.emptyList());
     }
 
-    private static AddressDTO toAddressDTO(AddressModel addressModel) {
+    public static AddressDTO toAddressDTO(AddressModel addressModel) {
         return new AddressDTO(
                 addressModel.getStreet(),
                 addressModel.getNumber(),

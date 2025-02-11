@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Collections;
 
 @Service
 public class PatientServiceImpl implements PatientService {
@@ -27,7 +28,7 @@ public class PatientServiceImpl implements PatientService {
     public PatientDTO save(PatientDTO patientDTO) {
         PatientModel patientModel = PatientMapper.toPatientModel(patientDTO);
 
-        validateInput(patientDTO);
+        validateInput(patientDTO, "save");
 
         if (patientExisting(patientDTO.getCpf(), patientDTO.getRne())) {
             throw new NotFoundException("O paciente já existe com este CPF ou RNE.");
@@ -79,19 +80,19 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional
     public PatientDTO update(String id, PatientDTO patientDTO) {
-        validateInput(patientDTO);
+        validateInput(patientDTO, "update");
 
-        PatientDTO patientDTOExisting = PatientMapper.toPatientDTO(patientRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("O paciente não foi localizado com o ID informado.")));
+        PatientModel patientModel = patientRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("O paciente não foi localizado com o ID informado."));
 
-        patientDTOExisting.setName(patientDTO.getName());
-        patientDTOExisting.setBirthDate(patientDTO.getBirthDate());
-        patientDTOExisting.setEmail(patientDTO.getEmail());
-        patientDTOExisting.setPhone(patientDTO.getPhone());
-        patientDTOExisting.setAddresses(patientDTO.getAddresses());
+        patientModel.setName(patientDTO.getName());
+        patientModel.setBirthDate(patientDTO.getBirthDate());
+        patientModel.setEmail(patientDTO.getEmail());
+        patientModel.setPhone(patientDTO.getPhone());
+        patientModel.setAddresses(patientDTO.getAddresses()!= null
+                ? patientDTO.getAddresses().stream().map(PatientMapper::toAddressModel).toList()
+                : Collections.emptyList());
 
-        PatientModel patientModel = PatientMapper.toPatientModel(patientDTOExisting);
-        patientModel.setId(id);
         return PatientMapper.toPatientDTO(patientRepository.save(patientModel));
     }
 
@@ -110,11 +111,11 @@ public class PatientServiceImpl implements PatientService {
         return  existingCpf || existingRne;
     }
 
-    public void validateInput(PatientDTO patientDTO) {
+    public void validateInput(PatientDTO patientDTO, String method) {
             if (patientDTO.getName() == null || patientDTO.getName().isEmpty()) {
                 throw new NotFoundException("O Nome deve ser informado.");
             } else if ((patientDTO.getCpf() == null || patientDTO.getCpf().isEmpty()) &&
-                    (patientDTO.getRne() == null || patientDTO.getRne().isEmpty())) {
+                    (patientDTO.getRne() == null || patientDTO.getRne().isEmpty()) && method.equals("save")) {
                 throw new NotFoundException("O CPF ou RNE deve ser informado.");
             } else if (patientDTO.getAddresses().isEmpty()) {
                 throw new NotFoundException("Ao menos um endereço deve ser informado.");

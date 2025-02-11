@@ -35,6 +35,14 @@ public class PatientDTO {
         this.addresses = addresses;
     }
 
+    public PatientDTO(String id, String name, String cpf, String rne, List<AddressDTO> addresses) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.rne = rne;
+        this.addresses = addresses;
+    }
+
     public String getId() {
         return id;
     }
@@ -66,35 +74,4 @@ public class PatientDTO {
         return addresses;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setAddresses(List<AddressDTO> addresses) {
-        this.addresses = addresses;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setRne(String rne) {
-        this.rne = rne;
-    }
 }
