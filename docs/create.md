@@ -37,29 +37,20 @@ curl --location 'http://localhost:8094/api/v1/patient' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "name": "Edgard Alencar",
-    "cpf": "123.456.789-99",
+    "cpf": "04782771053",
     "rne": null,
-    "birthDate": "1990-05-15",
-    "email": "edgard.alencar@email.com",
-    "phone": "(11) 91234-5678",
+    "birthDate": "1989-10-01",
+    "email": "teste@teste.com.br",
+    "phone": "(11)97979-7979",
     "addresses": [
         {
-            "street": "Rua das Flores",
-            "number": "123",
-            "complement": "Apto 101",
-            "neighborhood": "Centro",
-            "city": "São Paulo",
+            "street": "Rua Lazaro Silva",
+            "number": "233",
+            "complement": "10A",
+            "neighborhood": "City Bussocaba",
+            "city": "Osasco",
             "state": "SP",
-            "zipCode": "01000-000"
-        },
-        {
-            "street": "Avenida Paulista",
-            "number": "456",
-            "complement": "Sala 202",
-            "neighborhood": "Bela Vista",
-            "city": "São Paulo",
-            "state": "SP",
-            "zipCode": "01310-000"
+            "zipCode": "06641470"
         }
     ]
 }'
@@ -70,31 +61,22 @@ curl --location 'http://localhost:8094/api/v1/patient' \
 
 ```json
 {
-  "id": "67a4d22fba5bdd0616c3f22e",
+  "id": "67b9247fb9f06e17605df7a9",
   "name": "Edgard Alencar",
-  "cpf": "123.456.789-99",
+  "cpf": "04782771053",
   "rne": null,
-  "birthDate": "1990-05-15",
-  "email": "edgard.alencar@email.com",
-  "phone": "(11) 91234-5678",
+  "birthDate": "1989-10-01",
+  "email": "teste@teste.com.br",
+  "phone": "(11)97979-7979",
   "addresses": [
     {
-      "street": "Rua das Flores",
-      "number": "123",
-      "complement": "Apto 101",
-      "neighborhood": "Centro",
-      "city": "São Paulo",
+      "street": "Rua Lazaro Silva",
+      "number": "233",
+      "complement": "10A",
+      "neighborhood": "City Bussocaba",
+      "city": "Osasco",
       "state": "SP",
-      "zipCode": "01000-000"
-    },
-    {
-      "street": "Avenida Paulista",
-      "number": "456",
-      "complement": "Sala 202",
-      "neighborhood": "Bela Vista",
-      "city": "São Paulo",
-      "state": "SP",
-      "zipCode": "01310-000"
+      "zipCode": "06641470"
     }
   ]
 }

@@ -9,7 +9,7 @@ Retorna um paciente de acordo com o ID informado
 #### Parâmetro
 
 ```shell
-curl --location 'http://localhost:8094/api/v1/patient/67a158e04d707042b38470cc' \
+curl --location 'http://localhost:8094/api/v1/patient/67b9247fb9f06e17605df7a9' \
 --data ''
 ```
     GET  api/v1/patient/{Id}

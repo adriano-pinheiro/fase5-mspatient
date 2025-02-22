@@ -9,9 +9,9 @@ Retorna um paciente de acordo com o CPF informado
 #### Parâmetro
 
 ```shell
-curl --location 'http://localhost:8094/api/v1/patient/cpf?cpf=123.456.789-99' \
+curl --location 'http://localhost:8094/api/v1/patient/cpf?cpf=04782771053' \
 --data ''
 ```
-    GET  api/v1/patient/cpf?cpf=123.456.789-99
+    GET  api/v1/patient/cpf?cpf=04782771053
 
 [< Voltar para o índice](../README.md)

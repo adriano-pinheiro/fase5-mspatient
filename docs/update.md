@@ -9,12 +9,10 @@ Atualiza um paciente de acordo com o ID informado
 #### Parâmetro
 
 ```shell
-curl --location --request PUT 'http://localhost:8094/api/v1/patient/67a4bcfc4f9c890349a1bd35' \
+curl --location --request PUT 'http://localhost:8094/api/v1/patient/67b9247fb9f06e17605df7a9' \
 --header 'Content-Type: application/json' \
 --data-raw '{  
-  "name": "Edgard Alencar",
-  "cpf": "123.456.789-99",
-  "rne": null,
+  "name": "Edgard Alencar Alterado",
   "birthDate": "1989-01-01",
   "email": "edgard.alecard@email.com",
   "phone": "(11) 99999-9999",
